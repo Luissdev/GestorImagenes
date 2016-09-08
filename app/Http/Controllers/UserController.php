@@ -1,5 +1,7 @@
 <?php namespace GestorImagenes\Http\Controllers;
 
+use GestorImagenes\Http\Requests\EditProfileRequest;
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller {
 
 	/*
@@ -28,17 +30,31 @@ class UserController extends Controller {
 /* 	public function getIndex(){
  		return 'nadamas estoy calandole';
  	}*/
-	public function getEditProfile(){
-		return 'mostrando formulario';
-	}
+ 	public function getEditProfile(){
+ 		return view('user.update');
+ 	}
 
-	public function postEditProfile(){
-		return 'generando actualizacion de perfil';
-	}
+ 	public function postEditProfile(EditProfileRequest $request){
+ 		$user = Auth::user();
+ 		$name = $request->get('name');
+ 		$user->name = $name;
 
-	/*Lo saque del archivo controller de la carpeta vendor*/
-	public function missingMethod($parameters = array())
-	{
-		abort(404);
-	}
-}
+ 		if ($request->has('password')) {
+ 			$user->password = bcrypt($request->get('password'));
+ 		}
+
+ 		if ($request->has('question')) {
+ 			$user->question = $request->get('question');
+ 			$user->answer = $request->get('answer');
+ 		}
+
+ 		$user->save();
+ 		return redirect('/validated')->with('updated'. 'Su perfil ha sido actualizado');
+ 	}
+
+ 	/*Lo saque del archivo controller de la carpeta vendor*/
+ 	public function missingMethod($parameters = array())
+ 	{
+ 		abort(404);
+ 	}
+ }

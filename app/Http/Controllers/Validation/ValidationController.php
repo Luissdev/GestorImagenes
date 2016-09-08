@@ -178,7 +178,7 @@ class ValidationController extends Controller {
 		$email = $request->get('email');
 		$user = User::where('email', '=', $email)->first();
 
-		if ($question == $user->question && answer == $user->answer) {
+		if ($question == $user->question && $answer == $user->answer) {
 			$password = $request->get('password');
 			$user->password = bcrypt($password);
 

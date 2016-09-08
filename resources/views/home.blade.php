@@ -8,6 +8,13 @@
 </div>
 @endif
 
+@if(Session::has('updated'))
+<div class="alert alert-succes">
+	<strong>En hora buena.</strong> Su perfil ha sido actualizado <br><br>
+	{{Session::get('updated')}}
+</div>
+@endif
+
 @if(Session::has('recovered'))
 <div class="aler alert-succes">
 	{{-- <strong>Whoops!</strong> Al parecer algo esta mal <br><br> --}}
