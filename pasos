@@ -1,0 +1,93 @@
+Crear proyecto: composer create project laravel/laravel=5.0 Gestormagenes
+
+Ruta pra el servidor local: C:\xampp\apache\conf\extra\httpd-vhosts.conf
+Primero se tiene que editar el host en windows/system32/etc/hosts
+
+Poner nombre a la aplicacion: php artisan app:name GestorImagenes
+
+Abrir .env y cuando estemos en entorno de produccion flasear APP_DEBUG
+Tambien se hace la configuracion de la base de datos
+
+Crear modelos en la carpeta app
+
+Para hacer las relaciones:
+	public function pictures(){
+		return $this->hasMany('GestorImagenes\pictures');
+		belongsTo (pertenece a)
+	}
+
+Controladores en app/http/controllers
+Copiamos todo lo que esta en use AuthenticatesAndRegistersUsers; y se edita a la necesidad del proyecto
+HomeController es la pagina de inicio
+WelcomeController es la pagina principal ya con la sesion iniciada
+Se agrega el metodo 
+
+Comandos sublime
+ctrl+r buscar metodo
+ctrl+p buscar archivo
+alt+click abre el archivo del metodo
+/*Lo saque del archivo controller de la carpeta vendor*/
+public function missingMethod($parameters = array())
+{
+	abort(404);
+}
+
+Sirve por si el usuario ingresa una ruta incorrecta mande un error
+
+Agregamos la ruta en http > routes
+
+Route::controllers([
+	'validation' => 'Validation\ValidationController',
+	'auth/picture' => 'PictureController',
+	'auth/album' => 'AlbumController',
+	'auth/user' => 'UserController',
+	'auth' => 'WelcomeController',
+	'/' => 'HomeController',
+]);
+
+Sirve para que lo que contenga la variable ejecutara funciones en el controlador
+
+
+
+
+Controladores app/http/controllers
+Modelos App/
+Vistas resources/views
+
+Comandos composer:
+composer create project laravel/laravel=5.0 Gestormagenes (crea el proyecto)
+php artisan app:name GestorImagenes (Asigna nombre a la aplicacion)
+php artisan list (muestra todas las opciones de artisan)
+
+
+Hacer migraciones:
+	php artisan make:migration -h
+	php artisan make:migration --create="Album" CrearTablaAlbumes
+	php artisan migrate
+
+	Seeders
+	php artisan db:seed
+
+Seed (sirve para trabajar con la base de datos)
+Agregamos los call de cada modelo e importamos los modelos con use GestorImagenes\nombreDelModelo
+
+		DB::statement("SET FOREIGN_KEY_CHECKS=0");
+Agregamos esa linea para que haga el chequeo de las llaves foraneas en 0, para que no marque error.
+Creamos un seeder por cada modelo 
+Insertamos en cada modelo informacion (Para las contraseñas se utiliza bcrypt)
+
+ejecutamos el comando:
+	composer dump autoload
+	php artisan db:seed
+
+Middleware esta asociado con kernel
+El archivo .env es para la configuracion inivial y depuracion deproyecto
+
+Handlers son excepciones y en el metodo podemos poner condiciones de los tipos de excepciones para mandar mensajes a la plantilla
+
+
+Request 
+	php artisan make:request LoginRequest
+
+jx5c977a
+ndyyutnb
